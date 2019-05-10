@@ -1,8 +1,9 @@
 package main
 
+import "go-learn/db20190510/proxy"
+
 func main() {
-	semaphore := NewSemaphore(5)
-	semaphore.Signal()
+	proxy.Test()
 }
 
 type Semaphore chan struct{}
