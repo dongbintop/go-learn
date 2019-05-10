@@ -1,7 +1,9 @@
 package db20190510
 
 import (
+	"context"
 	"fmt"
+	a "golang.org/x/sync/semaphore"
 	"sync"
 )
 
@@ -47,6 +49,7 @@ func MakeSemaphore(value int) *Semaphore {
 func SemaphoreTest() {
 	wg := sync.WaitGroup{}
 	wg.Add(100)
+
 	semaphore := MakeSemaphore(5)
 	for i := 0; i < 100; i++ {
 		go func(value int) {
@@ -57,4 +60,7 @@ func SemaphoreTest() {
 		}(i)
 	}
 	wg.Wait()
+	weighted := a.NewWeighted(10)
+	weighted.Acquire(context.TODO(), 10)
+	weighted.Release(10)
 }
